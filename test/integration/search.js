@@ -8,6 +8,7 @@ describe('Integration: Dialect Search endpoint', () => {
       {
         slug: 'baita',
         dialect: 'Baita',
+        region: 'gauches',
         meanings: ['Grande', 'Imenso'],
         examples: ['Bah tchê, que baita de um problema tu arranjaste?!'],
       },
@@ -16,6 +17,7 @@ describe('Integration: Dialect Search endpoint', () => {
       {
         slug: 'baita',
         dialect: 'Baita',
+        region: 'paranes',
         meanings: ['grande', 'enorme', 'de grandes proporções'],
         examples: ['Mas que baita susto tu me deu'],
       },

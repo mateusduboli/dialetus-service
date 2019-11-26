@@ -14,19 +14,19 @@ describe('Integration: Dialect Regions endpoint', () => {
     },
     {
       name: 'baianes',
-      total: 42,
+      total: 44,
     },
     {
       name: 'carioques',
-      total: 14,
+      total: 16,
     },
     {
       name: 'catarines',
-      total: 22,
+      total: 24,
     },
     {
       name: 'cearences',
-      total: 10,
+      total: 19,
     },
     {
       name: 'gauches',
@@ -34,7 +34,7 @@ describe('Integration: Dialect Regions endpoint', () => {
     },
     {
       name: 'lageanes',
-      total: 28,
+      total: 27,
     },
     {
       name: 'maranhes',
@@ -42,11 +42,11 @@ describe('Integration: Dialect Regions endpoint', () => {
     },
     {
       name: 'mineires',
-      total: 26,
+      total: 31,
     },
     {
       name: 'paraense',
-      total: 30,
+      total: 34,
     },
     {
       name: 'paranes',
@@ -54,11 +54,11 @@ describe('Integration: Dialect Regions endpoint', () => {
     },
     {
       name: 'paulistes',
-      total: 17,
+      total: 28,
     },
     {
       name: 'pernambuques',
-      total: 17,
+      total: 31,
     },
     {
       name: 'piauies',
@@ -66,7 +66,7 @@ describe('Integration: Dialect Regions endpoint', () => {
     },
     {
       name: 'potiguares',
-      total: 35,
+      total: 40,
     },
     {
       name: 'rondones',
@@ -91,6 +91,6 @@ describe('Integration: Dialect Regions endpoint', () => {
       .redirects(0)
 
     expect(res).to.have.status(200)
-    expect(res.body).to.eql(expectedResponse)
+    expect(expectedResponse).to.eql(res.body)
   })
 })

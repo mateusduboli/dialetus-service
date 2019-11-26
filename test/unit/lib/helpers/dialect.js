@@ -41,6 +41,7 @@ describe('Helpers: Dialect', () => {
       const expectedData = {
         slug: 'se-pa',
         dialect: 'Se pá',
+        region: 'paulistes',
         meanings: ['Surpresa', 'Admiração', 'Talvez', 'Se der'],
         examples: ['Oxente mainha!', 'Se pá eu apareço aí hoje à noite'],
       }
@@ -89,6 +90,7 @@ describe('Helpers: Dialect', () => {
         {
           slug: 'baita',
           dialect: 'Baita',
+          region: 'gauches',
           meanings: ['Grande', 'Imenso'],
           examples: ['Bah tchê, que baita de um problema tu arranjaste?!'],
         },
@@ -100,6 +102,7 @@ describe('Helpers: Dialect', () => {
         {
           slug: 'baita',
           dialect: 'Baita',
+          region: 'paranes',
           meanings: ['grande', 'enorme', 'de grandes proporções'],
           examples: ['Mas que baita susto tu me deu'],
         },

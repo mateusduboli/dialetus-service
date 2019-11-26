@@ -1,10 +1,12 @@
 const merge = require('deepmerge')
 const dialects = require('../dialects')
-const { toNormalize } = require('./string')
+const { slugifyDialect } = require('./string')
+const { fromEntries } = require('./polyfill')
 
 const find = (region, slugParam) => {
-  if (dialects[region]) {
-    const dialect = dialects[region].find(({ slug }) => slug === slugParam)
+  const regionDialects = dialects.byRegion[region]
+  if (regionDialects) {
+    const dialect = regionDialects[slugParam]
 
     return dialect || null
   }
@@ -13,11 +15,11 @@ const find = (region, slugParam) => {
 }
 
 const getRegionAndSlugByVariation = variation => {
-  const [region, slug] = variation.split('.')
+  const [region, name] = variation.split('.')
 
   return {
     region,
-    slug: slug.toLowerCase(),
+    slug: slugifyDialect(name),
   }
 }
 
@@ -52,27 +54,36 @@ const get = (region, slugParam) => {
   return dialect
 }
 
+const getMultiple = (region, slugs) => {
+  return slugs.map(slug => get(region, slug))
+}
+
 const search = word => {
-  const dialectWord = toNormalize(word)
-  const isEmpty = obj => Object.keys(obj).length > 0
-  const result = Object.entries(dialects).reduce((acc, [key, values]) => {
-    const value = values.filter(value => {
-      return toNormalize(value.dialect)
-        .toLowerCase()
-        .includes(dialectWord.toLowerCase())
-    })
-    if (isEmpty(value)) {
-      acc[key] = value
-    }
-    return acc
-  }, {})
-  return isEmpty(result) ? result : null
+  const searchTerm = slugifyDialect(word)
+  const slugsByRegion = Object.entries(dialects.regionBySlug).reduce(
+    (acc, [slug, regions]) => {
+      if (!slug.includes(searchTerm)) return acc
+
+      regions.forEach(region => {
+        const resultSlugByRegion = acc[region] || []
+        resultSlugByRegion.push(slug)
+        acc[region] = resultSlugByRegion
+      })
+
+      return acc
+    },
+    {}
+  )
+
+  return Object.entries(slugsByRegion)
+    .map(([region, slugs]) => [region, getMultiple(region, slugs)])
+    .reduce(fromEntries, {})
 }
 
 module.exports = {
   get,
   find,
+  search,
   getRegionAndSlugByVariation,
   mergeVariations,
-  search,
 }
